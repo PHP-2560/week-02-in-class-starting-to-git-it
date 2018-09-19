@@ -5,59 +5,27 @@
 
 1. The data set at rnf6080.dat records hourly rainfall at a certain location in Canada, every day from 1960 to 1980. First, we need to load the data set into R using the command read.table(). Use the help function to learn what arguments this function takes. Once you have the necessary input, load the data set into R and make it a data frame called rain.df.
 
-```{r}
-rain.df <- read.table("rnf6080.dat")
 
-rain.df
+```r
+library(rnf6080)
+```
+
+```
+## Error in library(rnf6080): there is no package called 'rnf6080'
 ```
 
 
 2. How many rows and columns does rain.df have? (If there are not 5070 rows and 27 columns, something is wrong; check the previous part to see what might have gone wrong in the previous part.)
-
-```{r}
-dim(rain.df) #gives dimensions of the matrix
-```
 3. What are the names of the columns of rain.df?
-```{r}
-names(rain.df) #getting the names of all of the columns
-```
-
 4. What is the value of row 5, column 7 of rain.df?
-
-```{r}
-rain.df[5,7] #indexing specific point
-```
 5. Display the second row of rain.df in its entirety.
-```{r}
-rain.df[2,] #indexing just the second row, leave column unspecified
-```
 6. Explain what the command below doesby running it on your data and examining the object. (You may find the display functions head() and tail() useful here.) Is it clear now what the last 24 columns represent?
-```{r}
-names(rain.df) <- c("year","month","day",seq(0,23))
-head(rain.df)
-tail(rain.df) #we renamed the first 3 columns as year month and day, the head and tail functions display  for us first few and last few rows respectively
-#The columns presumably represent each hour of rainfall measured
 ```
 names(rain.df) <- c("year","month","day",seq(0,23))
-
 ````
 7. Create a new column in the data frame called daily, which is the sum of the rightmost 24 columns. With this column, create a histogram of the values in this column, which are supposed to be daily rainfall values. What is wrong with this picture?
-```{r}
-library(dplyr) #pulling the dplyr stuff
-rain.df <- rain.df %>% mutate(daily=rowSums(.[4:27])) #need to take a sum of all of the row, besides the date related stuff
-rain.df #checking it worked
-```
 8. Create a new data frame rain.df.fixed that takes the original and fixes it for the apparent flaw you have discovered. Having done this, produce a new histogram with the corrected data and explain why this is more reasonable.
-```{r}
-hist(rain.df$daily) #the histogram reveals that there are negative values, which should not be there, we need to remove these since there can be no negative rainfall. We will code anything lower than zero as missing
 
-library(tidyr) #opening up tidyr
-
-rain.df.fixed <- rain.df %>% 
-    mutate_all(funs(replace(., .<0, NA)))  #here we run through all of the rows replacing negative values with NA without disturbing positive ones, we graph the histogram below
-  
-hist(rain.df.fixed$daily)
-```
 ## Part 2
 ### New York City Flights 13
 
@@ -96,7 +64,7 @@ The `dplyr` package uses verbs to perform data manipulation.
 
 
 ### Select
-5. Select columns containing date information.
+5. Select columns containing data information.
 6. Select columns including only plane information.
 7. Rename tailnum to tail_num
 
