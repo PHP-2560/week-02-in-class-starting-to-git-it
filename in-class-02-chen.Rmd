@@ -84,12 +84,12 @@ rain.df$daily
 length(which(rain.df$daily < 0))
 
 #replace negative values of daily with 0
-is.na(rain.df$daily) <- rain.df$daily < 0
+library(dplyr)
+rain.df.fixed <- rain.df %>%
+  mutate_all(funs(replace(., .<0, NA)))
 
-hist(rain.df$daily)
-
-df %>% 
-    mutate_each(funs(replace(., .<0, NA)))
+#new histogram
+hist(rain.df.fixed$daily, xlab = "Daily Rainfall Values", main = "Daily Rainfall Values")
 ```
 
 ## Part 2
@@ -121,6 +121,18 @@ The `dplyr` package uses verbs to perform data manipulation.
 ### Filtering Rows
 
 1. Filter all flights on your birthday.
+
+```{r}
+library(nycflights13)
+library(dplyr)
+flights
+
+flights %>% filter(month == 4, day == 17)
+
+
+```
+
+
 2. Filter all flights in rows 567 - 589
 
 
