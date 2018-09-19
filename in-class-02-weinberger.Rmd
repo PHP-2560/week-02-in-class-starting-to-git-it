@@ -1,5 +1,5 @@
 # In-Class: September 19, 2018
-# Kate Weinberger
+# Kate Weinberger 
 
 ## Part 1 (You can do this with or without dplyr)
 
