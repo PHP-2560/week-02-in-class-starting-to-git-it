@@ -110,12 +110,37 @@ The `dplyr` package uses verbs to perform data manipulation.
 ### Filtering Rows
 
 1. Filter all flights on your birthday.
+
+```{r}
+library(nycflights13)
+names(flights)
+head(flights)
+
+flights %>% filter(month == 5 & day == 9)
+
+```
+
+
 2. Filter all flights in rows 567 - 589
+
+```{r}
+flights %>% slice(567:589)
+```
 
 
 ### Arranging Rows
 3. Use arrange() to order the data by year, month and day
+
+```{r}
+flights %>% arrange(year, month, day)
+```
+
+
 4. Use desc() to arrange flights by arrival delay.
+
+```{r}
+flights %>% arrange(desc(arr_delay))
+```
 
 
 ### Select
