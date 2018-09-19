@@ -52,11 +52,34 @@ names(rain.df) <- c("year","month","day",seq(0,23))
 names(rain.df)
 head(rain.df)
 tail(rain.df)
+# The 24 columns represent hourly rainfall for the 24 hours in each day
 
 ```
 
 7. Create a new column in the data frame called daily, which is the sum of the rightmost 24 columns. With this column, create a histogram of the values in this column, which are supposed to be daily rainfall values. What is wrong with this picture?
+
+```{r}
+rain.df <- rain.df %>% mutate(daily = rowSums(.[4:27]))
+names(rain.df)
+hist(rain.df$daily)
+# There are a bunch of negative values of daily rainfall. I'm guessing that missing values are coded with a negative 
+# number, and we're summing them when we create the daily variable. We should probably replace these values with NA!
+
+```
+
+
 8. Create a new data frame rain.df.fixed that takes the original and fixes it for the apparent flaw you have discovered. Having done this, produce a new histogram with the corrected data and explain why this is more reasonable.
+
+```{r}
+# Let's code anything lower than zero in the "daily" column as missing:
+length(which(rain.df$daily < 0))
+
+rain.df.fixed <- rain.df %>% mutate_all(funs(replace(., .<0, NA)))
+
+hist(rain.df.fixed$daily)
+
+```
+
 
 ## Part 2
 ### New York City Flights 13
@@ -96,7 +119,7 @@ The `dplyr` package uses verbs to perform data manipulation.
 
 
 ### Select
-5. Select columns containing data information.
+5. Select columns containing date information.
 6. Select columns including only plane information.
 7. Rename tailnum to tail_num
 
