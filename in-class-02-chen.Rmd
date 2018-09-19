@@ -176,11 +176,25 @@ flights %>%
 
 ### Mutating Rows
 8. Create a variable called gain which describes the difference between arrival delap and departure delay.
-9. Create a variable called speed which is distance over time in hours.
+```{r}
+flights %>%
+  mutate(gain = arr_delay - dep_delay)
+```
 
+
+9. Create a variable called speed which is distance over time in hours.
+```{r}
+flights %>%
+  mutate(speed = distance/hour)
+```
 
 ###Summarise
 10. Summarise the average delay for all flights.
+```{r}
+flights %>%
+  summarise(avg.delay = mean(dep_delay))
+
+```
 
 ## Overall Questions
 
