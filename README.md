@@ -2,9 +2,9 @@
 
 Have one person fill in the names of who is doing this:
 
-1. _______________________________
-2. _______________________________
-3. _______________________________
+1. Kevin Chen
+2. Jon Spiegel
+3. Kate Weinberger
 4. _______________________________
 
 # In-Class
