@@ -61,8 +61,11 @@ Yes, I can see that the last 24 columns represent the 24 hours in a day.
 
 ```{r}
 library(dplyr)
+#create daily column
 rain.df <- rain.df %>% mutate(daily = rowSums(.[4:27]))
 head(rain.df)
+
+#plot histogram of daily
 hist(rain.df$daily, xlab = "Daily Rainfall Values", main = "Daily Rainfall Values")
 ```
 
@@ -70,8 +73,24 @@ From the histogram, we see that there are a few negative rainfall values, which 
 
 8. Create a new data frame rain.df.fixed that takes the original and fixes it for the apparent flaw you have discovered. Having done this, produce a new histogram with the corrected data and explain why this is more reasonable.
 
+```{r}
+#check the minimum value of daily
+min(rain.df$daily)
 
+#check all values of daily
+rain.df$daily
 
+#find number of daily that is negative
+length(which(rain.df$daily < 0))
+
+#replace negative values of daily with 0
+is.na(rain.df$daily) <- rain.df$daily < 0
+
+hist(rain.df$daily)
+
+df %>% 
+    mutate_each(funs(replace(., .<0, NA)))
+```
 
 ## Part 2
 ### New York City Flights 13
