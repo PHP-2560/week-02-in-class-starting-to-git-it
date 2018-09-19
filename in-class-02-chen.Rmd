@@ -127,24 +127,51 @@ library(nycflights13)
 library(dplyr)
 flights
 
-flights %>% filter(month == 4, day == 17)
-
-
+#filter all flights on April 17
+flights %>%
+  filter(month == 4, day == 17)
 ```
 
 
 2. Filter all flights in rows 567 - 589
+```{r}
+flights %>%
+  slice(567:589)
+```
 
 
 ### Arranging Rows
 3. Use arrange() to order the data by year, month and day
-4. Use desc() to arrange flights by arrival delay.
+```{r}
+flights %>%
+  arrange(year, month, day)
+```
 
+4. Use desc() to arrange flights by arrival delay.
+```{r}
+flights %>%
+  arrange(desc(arr_delay))
+```
 
 ### Select
 5. Select columns containing data information.
+```{r}
+flights %>%
+  select(year, month, day)
+```
+
+
 6. Select columns including only plane information.
+```{r}
+flights %>%
+  select(-year, -month, -day)
+```
+
 7. Rename tailnum to tail_num
+```{r}
+flights %>%
+  rename(tail_num = tailnum)
+```
 
 
 ### Mutating Rows
